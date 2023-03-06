@@ -165,10 +165,10 @@ const app = new Vue({
         move() {
 
             let diffdist;
-            let timeInGame = 20 / 1000;
+            let timeForRender = 20; // render-time
 
             const dt = 100 / 1000
-            this.time += timeInGame
+            this.time += dt
 
             if (document.getElementById("petrolButton").classList.contains("active") && (this.currentPetrol - this.weightImpulse) >= 0) 
             {
@@ -177,19 +177,17 @@ const app = new Vue({
                 let imgArray = ["imgAllFlames", "imgOneFlames", "imgTwoFlames", "imgTwoFlamesNoMiddle", "imgOnlyMiddle"]
                 this.imgShip = this.image[imgArray[Math.floor(Math.random() * 5)]]
 
-                this.currentPetrol -= (this.weightImpulse * timeInGame);
+                this.currentPetrol -= (this.weightImpulse);
                 this.currentSpeed = ((this.weightMachine + this.currentPetrol) * this.currentSpeed - this.weightImpulse * this.speedExpiry) / (this.weightMachine + this.currentPetrol - this.weightImpulse);
             }
             else 
             {
                 this.imgShip = this.image.imgWithoutPetrol
-                // this.currentSpeed += (this.accFreeFall * timeInGame);
                 this.currentSpeed += (this.accFreeFall * dt);
 
             }
 
             diffdist = this.currentSpeed * dt;
-            // diffdist = this.currentSpeed * timeInGame;
             this.distance -= diffdist;
             this.currentPositionY += (diffdist * this.step);
 
@@ -198,7 +196,7 @@ const app = new Vue({
             let canvas = document.querySelector("canvas")
 
             if ((this.currentPositionY < (canvas.height - (this.surfaceMoonHeight -  this.offsetSurfaceMoon) - this.imgShip.height)) && (this.limitTime > this.time)) {
-                setTimeout(this.move, 20);
+                setTimeout(this.move, timeForRender);
             }
             else {
                 // console.log("Касание")
