@@ -297,6 +297,17 @@ const app = new Vue({
         this.image.imgWithoutPetrol.src = this.imageCollection.imgWithoutPetrol
         this.image.crash.src = this.imageCollection.crash
 
+
+        let paramsContainer = document.querySelector(".paramsContainer");
+        let inputs = [...paramsContainer.querySelectorAll("input")];
+
+        inputs.forEach(element => {
+            element.setAttribute("data-bs-title", `Значения: [${element.getAttribute("min")}-${element.getAttribute("max")}]`)
+            element.setAttribute("data-bs-toggle", "tooltip")
+            element.setAttribute("data-bs-placement", "bottom")
+            element.setAttribute("data-bs-custom-class", "custom-tooltip")
+        }); 
+
     },
     watch: {
         startDistance() {
