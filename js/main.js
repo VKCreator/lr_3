@@ -117,12 +117,7 @@ const app = new Vue({
                 event.target.classList.add("is-invalid")
                 event.target.classList.remove("is-valid")
                 $(`#${nameProperty}`).tooltip('enable')
-                // $(`#${nameProperty}`).tooltip({
-                //     placement: "bottom",
-                //     trigger: "focus"
-                // })
-
-                 $(`#${nameProperty}`).tooltip('show')
+                $(`#${nameProperty}`).tooltip('show')
             }
             else 
             {
