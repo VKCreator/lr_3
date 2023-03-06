@@ -188,7 +188,6 @@ const app = new Vue({
             {
                 this.imgShip = this.image.imgWithoutPetrol
                 this.currentSpeed += (this.accFreeFall * dt);
-
             }
 
             diffdist = this.currentSpeed * dt;
