@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="#">
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./fonts/fontawesome/css/all.min.css">
+        <title>Spacecraft</title>
+    </head>
+    <body>
+        <div id="app" v-cloak>
+            <template>
+                <div class="gamePole container-fluid justify-content-md-center min-vh-100 align-items-center d-flex flex-column p-0">
+                    <div class="row text-center m-0">
+                        <div class="col-12 p-0">
+                            <h1>Spacecraft</h1>
+                        </div>
+                    </div>
+                    <div class="row bg-white text-center mainCont justify-content-center m-0">
+                        <div class="col-md-6 col-12 p-0 centerPoleCanvas">
+                            <canvas class="canvasPict centerPoleCanvas" height="650">
+                            </canvas>
+                        </div>
+                        <div class="col-md-6 bg-white centerPoleParam col-12 p-0">
+                            <div class="container-fluid d-flex flex-md-column flex-column-reverse m-0  pt-3 h-100">
+                                <div class="row paramsContainer ">
+                                    <div class="col-12 text-start">
+                                        <div class="row p-1 m-0">
+                                            <div class="col-7">
+                                                <label for="weightMachine">Вес аппарата, кг</label>
+                                            </div>
+                                            <div class="col-5">
+                                                <input tabindex="3" class="form-control is-valid" :value="weightMachine" type="number" min="500" step="1" max="15000" @input="checkValue($event, 'weightMachine')" id="weightMachine" required>
+                                            </div> 
+                                        </div>
+                                        <div class="row p-1 m-0">
+                                            <div class="col-7">
+                                                <label for="weightPetrol">Вес топлива, кг</label>
+                                            </div>
+                                            <div class="col-5">
+                                                <input class="form-control is-valid" type="number" :value="weightPetrol" min="100" step="1" max="1500" @input="checkValue($event, 'weightPetrol')" id="weightPetrol" required>
+                                            </div> 
+                                        </div>
+                                        <div class="row p-1 m-0">
+                                            <div class="col-7">
+                                                <label for="weightImpulse">Вес импульса, кг</label>
+                                            </div>
+                                            <div class="col-5">
+                                                <input class="form-control is-valid" :value="weightImpulse" type="number" min="5" step="1" max="20" @input="checkValue($event, 'weightImpulse')" id="weightImpulse" required>
+                                            </div> 
+                                        </div>
+                                        <div class="row p-1 m-0">
+                                            <div class="col-7">
+                                                <label for="speedExpiry">Скорость истечения, м/c</label>
+                                            </div>
+                                            <div class="col-5">
+                                                <input class="form-control is-valid" type="number" :value="speedExpiry" min="100" step="1" max="2000" @input="checkValue($event, 'speedExpiry')" id="speedExpiry" required>
+                                            </div> 
+                                        </div>
+                                        <div class="row p-1 m-0">
+                                            <div class="col-7">
+                                                <label for="maxSpeedTouch">Max ск-ть касания, м/c</label>
+                                            </div>
+                                            <div class="col-5">
+                                                <input class="form-control is-valid" type="number" min="5" step="1" max="30" :value="maxSpeedTouch" @input="checkValue($event, 'maxSpeedTouch')" id="maxSpeedTouch" required>
+                                            </div> 
+                                        </div>
+                                        <div class="row p-1 m-0">
+                                            <div class="col-7">
+                                                <label for="accFreeFall">Уск. своб. падения, м/c</label>
+                                            </div>
+                                            <div class="col-5">
+                                                <input class="form-control is-valid" type="number" min="1.0" max="24.0" step="0.1" :value="accFreeFall" @input="checkValue($event, 'accFreeFall', false)" id="accFreeFall" required>
+                                            </div> 
+                                        </div>
+                                        <div class="row p-1 m-0">
+                                            <div class="col-7">
+                                                <label for="limitTime">Лимит времени, c</label>
+                                            </div>
+                                            <div class="col-5">
+                                                <input class="form-control is-valid" type="number" min="20" max="300" step="1" :value="limitTime" @input="checkValue($event, 'limitTime')" id="limitTime">
+                                            </div> 
+                                        </div>
+                                        <div class="row p-1 m-0">
+                                            <div class="col-7">
+                                                <label for="startDistance">Нач. расстояние, м</label>
+                                            </div>
+                                            <div class="col-5">
+                                                <input class="form-control is-valid" type="number" min="100" max="1100" step="1" :value="startDistance" @input="checkValue($event, 'startDistance')" id="startDistance" required>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row dynamicParam text-start">
+                                    <div class="col-12">
+                                        <div class="row m-1">
+                                            <div class="col-8">
+                                                Текущая скорость, м/c
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                {{currentSpeed.toFixed(2)}}
+                                            </div>
+                                        </div>
+                                        <div class="row m-1">
+                                            <div class="col-8">
+                                                Прошло времени, c
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                {{time.toFixed(2)}}
+                                            </div>
+                                        </div>
+                                        <div class="row m-1">
+                                            <div class="col-8">
+                                                Расстояние, м
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                {{distance.toFixed(2)}}
+                                            </div>
+                                        </div>
+                                        <div class="row m-1">
+                                            <div class="col-8">
+                                                Осталось топлива, кг
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                {{currentPetrol.toFixed()}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mt-md-3">
+                                    <div class="col-12">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-3 text-start p-1 pt-0">
+                                                    <button tabindex="1" class='btn btn-primary btn-start p-1' id="petrolButton" :disabled="petrolDisable" @click="supplyFuel" data-bs-toggle="button" autocomplete="off">
+                                                        <i v-if="(currentPetrol - weightImpulse) > 0 || !isStart" class="fa-lg fa-solid fa-gas-pump"></i>
+                                                        <i v-else class="fa-lg fa-solid fa-xmark"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col text-end p-1 pt-0">
+                                                    <button tabindex="2" class="btn btn-primary btn-start" :disabled="isDisabled"  @click="startGame" id="startButton">Старт</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="myModal" class="modal fade" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Конец игры</h3>
+                            </div>
+                            <div class="modal-body" id="textFinishGame">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" @click="reload" id="reloadButton">Перезапустить игру</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <script src="./js/vue.js"></script>
+        <script src="./js/bootstrap.bundle.min.js"></script>
+        <script src="./js/jquery.min.js"></script> 
+        <script src="./js/main.js"></script>
+    </body>
+</html>
