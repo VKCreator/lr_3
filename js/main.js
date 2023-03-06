@@ -186,7 +186,7 @@ const app = new Vue({
                 let imgArray = ["imgAllFlames", "imgOneFlames", "imgTwoFlames", "imgTwoFlamesNoMiddle", "imgOnlyMiddle"]
                 this.imgShip = this.image[imgArray[Math.floor(Math.random() * 5)]]
 
-                this.currentPetrol -= (this.weightImpulse);
+                this.currentPetrol -= (this.weightImpulse * dt);
                 this.currentSpeed = ((this.weightMachine + this.currentPetrol) * this.currentSpeed - this.weightImpulse * this.speedExpiry) / (this.weightMachine + this.currentPetrol - this.weightImpulse);
             }
             else 
