@@ -34,7 +34,7 @@
                                                 <label for="weightMachine">Вес аппарата, кг</label>
                                             </div>
                                             <div class="col-5">
-                                                <input tabindex="3" class="form-control is-valid" :value="weightMachine" type="number" min="500" step="1" max="15000" @input="checkValue($event, 'weightMachine')" id="weightMachine" required>
+                                                <input tabindex="3" class="form-control is-valid" :value="weightMachine" type="number" min="500" step="1" max="15000" @input="checkValue($event, 'weightMachine')" data-bs-trigger="focus" id="weightMachine" required>
                                             </div> 
                                         </div>
                                         <div class="row p-1 m-0">

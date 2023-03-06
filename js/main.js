@@ -117,7 +117,12 @@ const app = new Vue({
                 event.target.classList.add("is-invalid")
                 event.target.classList.remove("is-valid")
                 $(`#${nameProperty}`).tooltip('enable')
-                $(`#${nameProperty}`).tooltip('show')
+                // $(`#${nameProperty}`).tooltip({
+                //     placement: "bottom",
+                //     trigger: "focus"
+                // })
+
+                 $(`#${nameProperty}`).tooltip('show')
             }
             else 
             {
@@ -172,7 +177,7 @@ const app = new Vue({
             let timeForRender = 20; // render-time
 
             const dt = 100 / 1000
-            this.time += dt
+            this.time += 20 / 1000
 
             if (document.getElementById("petrolButton").classList.contains("active") && (this.currentPetrol - this.weightImpulse) >= 0) 
             {
