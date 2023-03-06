@@ -116,12 +116,16 @@ const app = new Vue({
             {
                 event.target.classList.add("is-invalid")
                 event.target.classList.remove("is-valid")
+                $(`#${nameProperty}`).tooltip('enable')
+                $(`#${nameProperty}`).tooltip('show')
             }
             else 
             {
                 event.target.classList.add("is-valid")
                 event.target.classList.remove("is-invalid")
                 localStorage.setItem(nameProperty, this[nameProperty]);
+                $(`#${nameProperty}`).tooltip('hide')
+                $(`#${nameProperty}`).tooltip('disable')
             }
 
             this.isErrorInParams()
