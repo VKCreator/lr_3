@@ -174,7 +174,7 @@ const app = new Vue({
             const dt = 100 / 1000
             this.time += 20 / 1000
 
-            if (document.getElementById("petrolButton").classList.contains("active") && (this.currentPetrol - this.weightImpulse) >= 0) 
+            if (document.getElementById("petrolButton").classList.contains("active") && (this.currentPetrol - this.weightImpulse * 200 / 1000) >= 0) 
             {
                 // let imgArray = ["imgAllFlames", "imgOneFlames", "imgTwoFlames", "imgTwoFlamesNoMiddle", "imgOnlyMiddle"]
                 // this.imgShip.src = this.imageCollection[imgArray[Math.floor(Math.random() * 5)]]
@@ -316,7 +316,7 @@ const app = new Vue({
         currentPetrol() {
             let btn = document.getElementById("petrolButton");
 
-            if ((this.currentPetrol - this.weightImpulse) < 0) {
+            if ((this.currentPetrol - this.weightImpulse * 200 / 1000) < 0) {
                 btn.classList.remove("active");
                 btn.classList.add("disabled")
             }

@@ -140,7 +140,7 @@
                                             <div class="row">
                                                 <div class="col-3 text-start p-1 pt-0">
                                                     <button tabindex="1" class='btn btn-primary btn-start p-1' id="petrolButton" :disabled="petrolDisable" @click="supplyFuel" data-bs-toggle="button" autocomplete="off">
-                                                        <i v-if="(currentPetrol - weightImpulse) > 0 || !isStart" class="fa-lg fa-solid fa-gas-pump"></i>
+                                                        <i v-if="(currentPetrol - weightImpulse * 200 / 1000) > 0 || !isStart" class="fa-lg fa-solid fa-gas-pump"></i>
                                                         <i v-else class="fa-lg fa-solid fa-xmark"></i>
                                                     </button>
                                                 </div>
